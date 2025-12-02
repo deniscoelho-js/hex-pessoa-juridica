@@ -4,6 +4,7 @@ import core.io.hex_pessoa_juridica.adapter.dto.mapper.PessoaJuridicaDTOMapper;
 import core.io.hex_pessoa_juridica.adapter.dto.request.PessoaJuridicaRequest;
 import core.io.hex_pessoa_juridica.adapter.dto.response.PessoaJuridicaResponse;
 import core.io.hex_pessoa_juridica.application.core.domain.PessoaJuridica;
+import core.io.hex_pessoa_juridica.application.ports.in.FindPjInputPort;
 import core.io.hex_pessoa_juridica.application.ports.in.SavePJInputPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,9 @@ public class PessoaJuridicaController {
     private SavePJInputPort savePJInputPort;
 
     @Autowired
+    private FindPjInputPort findPjInputPort;
+
+    @Autowired
     private PessoaJuridicaDTOMapper pessoaJuridicaDTOMapper;
 
     @PostMapping
@@ -26,5 +30,13 @@ public class PessoaJuridicaController {
         PessoaJuridica pjSalvo = savePJInputPort.save(pessoaJuridica);
         PessoaJuridicaResponse pessoaJuridicaResponse = pessoaJuridicaDTOMapper.toPessoaJuridicaResponse(pjSalvo);
         return ResponseEntity.status(HttpStatus.CREATED).body(pessoaJuridicaResponse);
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PessoaJuridicaResponse> find(@PathVariable Long id){
+        var pj = findPjInputPort.findById(id);
+        var pjResponse = pessoaJuridicaDTOMapper.toPessoaJuridicaResponse(pj);
+        return ResponseEntity.ok(pjResponse);
     }
 }
