@@ -2,12 +2,10 @@ package core.io.hex_pessoa_juridica.application.core.usecase;
 
 import core.io.hex_pessoa_juridica.adapter.out.client.EnderecoClient;
 import core.io.hex_pessoa_juridica.application.core.domain.PessoaJuridica;
-import core.io.hex_pessoa_juridica.application.ports.in.FindPjInputPort;
+import core.io.hex_pessoa_juridica.application.ports.in.FindPJInputPort;
 import core.io.hex_pessoa_juridica.application.ports.out.FindPJOutputPort;
 
-import java.util.Optional;
-
-public class FindPJUseCase implements FindPjInputPort {
+public class FindPJUseCase implements FindPJInputPort {
 
     private final FindPJOutputPort findPJOutputPort;
 

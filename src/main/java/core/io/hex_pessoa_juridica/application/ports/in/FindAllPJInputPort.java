@@ -4,6 +4,6 @@ import core.io.hex_pessoa_juridica.application.core.domain.PessoaJuridica;
 
 import java.util.List;
 
-public interface FindAllPjInputPort {
+public interface FindAllPJInputPort {
     List<PessoaJuridica> findAll();
 }

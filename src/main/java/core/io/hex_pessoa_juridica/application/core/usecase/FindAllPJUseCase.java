@@ -2,20 +2,19 @@ package core.io.hex_pessoa_juridica.application.core.usecase;
 
 import core.io.hex_pessoa_juridica.adapter.out.client.EnderecoClient;
 import core.io.hex_pessoa_juridica.application.core.domain.PessoaJuridica;
-import core.io.hex_pessoa_juridica.application.ports.in.FindAllPjInputPort;
-import core.io.hex_pessoa_juridica.application.ports.out.FindAllPjOutputPort;
-import org.springframework.stereotype.Component;
+import core.io.hex_pessoa_juridica.application.ports.in.FindAllPJInputPort;
+import core.io.hex_pessoa_juridica.application.ports.out.FindAllPJOutputPort;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FindAllPjUseCase implements FindAllPjInputPort {
+public class FindAllPJUseCase implements FindAllPJInputPort {
 
     private final EnderecoClient enderecoClient;
 
-    private final FindAllPjOutputPort findAllPjOutputPort;
+    private final FindAllPJOutputPort findAllPjOutputPort;
 
-    public FindAllPjUseCase(EnderecoClient enderecoClient, FindAllPjOutputPort findAllPjOutputPort) {
+    public FindAllPJUseCase(EnderecoClient enderecoClient, FindAllPJOutputPort findAllPjOutputPort) {
         this.enderecoClient = enderecoClient;
         this.findAllPjOutputPort = findAllPjOutputPort;
     }

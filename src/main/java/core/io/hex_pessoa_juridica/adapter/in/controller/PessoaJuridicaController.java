@@ -4,8 +4,9 @@ import core.io.hex_pessoa_juridica.adapter.dto.mapper.PessoaJuridicaDTOMapper;
 import core.io.hex_pessoa_juridica.adapter.dto.request.PessoaJuridicaRequest;
 import core.io.hex_pessoa_juridica.adapter.dto.response.PessoaJuridicaResponse;
 import core.io.hex_pessoa_juridica.application.core.domain.PessoaJuridica;
-import core.io.hex_pessoa_juridica.application.ports.in.FindAllPjInputPort;
-import core.io.hex_pessoa_juridica.application.ports.in.FindPjInputPort;
+import core.io.hex_pessoa_juridica.application.ports.in.DeletePJInputPort;
+import core.io.hex_pessoa_juridica.application.ports.in.FindAllPJInputPort;
+import core.io.hex_pessoa_juridica.application.ports.in.FindPJInputPort;
 import core.io.hex_pessoa_juridica.application.ports.in.SavePJInputPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,10 +24,13 @@ public class PessoaJuridicaController {
     private SavePJInputPort savePJInputPort;
 
     @Autowired
-    private FindPjInputPort findPjInputPort;
+    private FindPJInputPort findPjInputPort;
 
     @Autowired
-    private FindAllPjInputPort findAllPjInputPort;
+    private FindAllPJInputPort findAllPjInputPort;
+
+    @Autowired
+    private DeletePJInputPort deletePJInputPort;
 
     @Autowired
     private PessoaJuridicaDTOMapper pessoaJuridicaDTOMapper;
@@ -53,5 +57,11 @@ public class PessoaJuridicaController {
                 .map(pessoaJuridicaDTOMapper::toPessoaJuridicaResponse)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(pessoaJuridicaResponses);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        deletePJInputPort.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
