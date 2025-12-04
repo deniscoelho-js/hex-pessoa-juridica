@@ -16,7 +16,6 @@ public class SavePJUseCase implements SavePJInputPort {
         this.enderecoClient = enderecoClient;
     }
 
-
     @Override
     public PessoaJuridica save(PessoaJuridica pessoaJuridica) {
         var endereco = enderecoClient.getEndereco(pessoaJuridica.getCep());
