@@ -4,10 +4,7 @@ import core.io.hex_pessoa_juridica.adapter.dto.mapper.PessoaJuridicaDTOMapper;
 import core.io.hex_pessoa_juridica.adapter.dto.request.PessoaJuridicaRequest;
 import core.io.hex_pessoa_juridica.adapter.dto.response.PessoaJuridicaResponse;
 import core.io.hex_pessoa_juridica.application.core.domain.PessoaJuridica;
-import core.io.hex_pessoa_juridica.application.ports.in.DeletePJInputPort;
-import core.io.hex_pessoa_juridica.application.ports.in.FindAllPJInputPort;
-import core.io.hex_pessoa_juridica.application.ports.in.FindPJInputPort;
-import core.io.hex_pessoa_juridica.application.ports.in.SavePJInputPort;
+import core.io.hex_pessoa_juridica.application.ports.in.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +31,9 @@ public class PessoaJuridicaController {
 
     @Autowired
     private PessoaJuridicaDTOMapper pessoaJuridicaDTOMapper;
+
+    @Autowired
+    private UpdatePJInputPort updatePJInputPort;
 
     @PostMapping
     public ResponseEntity<PessoaJuridicaResponse> save(@RequestBody PessoaJuridicaRequest pessoaJuridicaRequest) {
@@ -63,5 +63,14 @@ public class PessoaJuridicaController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         deletePJInputPort.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PessoaJuridicaResponse> update(@PathVariable Long id, @RequestBody PessoaJuridicaRequest pessoaJuridicaRequest) {
+        PessoaJuridica pessoaJuridica = pessoaJuridicaDTOMapper.toPessoaJuridica(pessoaJuridicaRequest);
+        pessoaJuridica.setIdPessoaJuridica(id);
+        PessoaJuridica pjAtualizado = updatePJInputPort.update(id, pessoaJuridica);
+        var pjResponse = pessoaJuridicaDTOMapper.toPessoaJuridicaResponse(pjAtualizado);
+        return ResponseEntity.ok().body(pjResponse);
     }
 }

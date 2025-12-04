@@ -1,18 +1,9 @@
 package core.io.hex_pessoa_juridica.config;
 
 import core.io.hex_pessoa_juridica.adapter.out.client.EnderecoClient;
-import core.io.hex_pessoa_juridica.application.core.usecase.DeletePJUseCase;
-import core.io.hex_pessoa_juridica.application.core.usecase.FindAllPJUseCase;
-import core.io.hex_pessoa_juridica.application.core.usecase.FindPJUseCase;
-import core.io.hex_pessoa_juridica.application.core.usecase.SavePJUseCase;
-import core.io.hex_pessoa_juridica.application.ports.in.DeletePJInputPort;
-import core.io.hex_pessoa_juridica.application.ports.in.FindAllPJInputPort;
-import core.io.hex_pessoa_juridica.application.ports.in.FindPJInputPort;
-import core.io.hex_pessoa_juridica.application.ports.in.SavePJInputPort;
-import core.io.hex_pessoa_juridica.application.ports.out.DeletePJOutputPort;
-import core.io.hex_pessoa_juridica.application.ports.out.FindAllPJOutputPort;
-import core.io.hex_pessoa_juridica.application.ports.out.FindPJOutputPort;
-import core.io.hex_pessoa_juridica.application.ports.out.SavePJOutputPort;
+import core.io.hex_pessoa_juridica.application.core.usecase.*;
+import core.io.hex_pessoa_juridica.application.ports.in.*;
+import core.io.hex_pessoa_juridica.application.ports.out.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -40,5 +31,11 @@ public class BeanConfiguration {
     public DeletePJInputPort deletePJUseCase(FindPJInputPort findPJInputPort,
                                              DeletePJOutputPort deletePJOutputPort) {
         return new DeletePJUseCase(findPJInputPort, deletePJOutputPort);
+    }
+
+    @Bean
+    public UpdatePJInputPort updatePJUseCase(FindPJInputPort findPJInputPort,
+                                             UpdatePJOutputPort updatePJOutputPort, EnderecoClient enderecoClient) {
+        return new UpdatePJUseCase(findPJInputPort, updatePJOutputPort, enderecoClient);
     }
 }
